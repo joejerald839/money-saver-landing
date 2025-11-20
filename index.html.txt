@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Money Saver — Automate operations, cut costs, scale smarter</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (icons) -->
+  <script src="https://kit.fontawesome.com/your-kit-here.js" crossorigin="anonymous"></script>
+  <!-- Fallback for icons if kit doesn't work immediately in preview -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <meta name="description" content="Money Saver — Custom AI systems to automate operations and reduce expenses for businesses." />
+
+  <style>
+    /* ======================================================
+       Money Saver - Internal CSS
+       ====================================================== */
+
+    :root{
+      --navy: #071B2A;
+      --card: #0F2736;
+      --neon: #39FF14;
+      --slate: #94A3B8;
+      --white: #FFFFFF;
+      --glass: rgba(255,255,255,0.03);
+      --radius-xl: 1rem;
+      --radius-2xl: 1.25rem;
+      --max-width: 1200px;
+      --transition: 250ms cubic-bezier(.2,.9,.3,1);
+      --shadow-soft: 0 8px 30px rgba(2,6,23,0.6);
+    }
+
+    body.light-theme {
+      --navy: #EAF2F8;
+      --card: #FFFFFF;
+      --neon: #007B2E;
+      --slate: #475569;
+      --white: #071B2A;
+      --glass: rgba(2,6,23,0.03);
+      background-color: #F6FBFF;
+      color: var(--white);
+    }
+
+    /* Base layout */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--navy) 0%, #04131A 100%);
+      color: var(--slate);
+      line-height:1.45;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    main{max-width:var(--max-width); margin:0 auto; padding:2rem; display:block;}
+
+    /* Header */
+    header{
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top:0;
+      z-index:1000;
+      background: linear-gradient(180deg, rgba(7,27,42,0.9), rgba(7,27,42,0.65));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      padding:0.6rem 1rem;
+      box-shadow: 0 4px 18px rgba(2,6,23,0.45);
+    }
+    .container{max-width:var(--max-width); margin:0 auto; display:flex; align-items:center; gap:1rem; justify-content:space-between; padding:0 1rem;}
+    .brand{display:flex; gap:0.75rem; align-items:center;}
+    .logo{
+      width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,var(--neon),#6efc9e);display:flex;align-items:center;justify-content:center;color:#002; font-weight:800;
+      box-shadow: 0 6px 20px rgba(57,255,20,0.06);
+      font-family: "Poppins", sans-serif;
+    }
+    .brand h1{margin:0;font-family:"Poppins"; font-size:1rem;color:var(--white);letter-spacing:0.2px}
+    nav#main-nav{display:flex;gap:1rem;align-items:center;}
+    nav#main-nav a{color:var(--slate);text-decoration:none;padding:0.5rem 0.75rem;border-radius:8px;font-weight:600}
+    nav#main-nav a:hover, nav#main-nav a:focus{color:var(--white); outline:none; background:rgba(255,255,255,0.02)}
+    #nav-toggle{display:none;background:transparent;border:0;color:var(--white);font-size:1.25rem;padding:0.5rem;border-radius:8px}
+
+    .cta{
+      background: linear-gradient(90deg,var(--neon), #7fff9e);
+      padding:0.6rem 0.9rem;border-radius:12px;color:#021; font-weight:700; text-decoration:none; display:inline-flex; gap:0.5rem; align-items:center;
+      box-shadow: var(--shadow-soft);
+    }
+    .cta:focus{outline:3px solid rgba(57,255,20,0.12)}
+
+    /* Hero */
+    #hero{display:grid;grid-template-columns:1fr;gap:1.25rem;padding:2rem 1rem 3rem}
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius-2xl);
+      padding:1.5rem;
+      box-shadow: 0 12px 50px rgba(2,6,23,0.5);
+      display:flex; flex-direction:column; gap:1rem;
+    }
+    .hero-top{display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;}
+    .hero-copy h2{font-family:"Poppins"; color:var(--white); margin:0; font-size:clamp(1.6rem,2.8vw,2.4rem);}
+    .hero-copy p{margin:0;color:var(--slate);font-size:1.05rem;}
+    .hero-actions{display:flex;gap:0.75rem;align-items:center;}
+    .meta-stats{display:flex;gap:0.75rem;align-items:center;}
+    .stat{
+      background:var(--card); padding:0.5rem 0.75rem;border-radius:10px; color:var(--white); font-weight:700; font-size:0.95rem;
+      display:flex; gap:0.5rem; align-items:center;
+    }
+
+    /* Features */
+    .grid-3{display:grid;grid-template-columns:1fr;gap:1rem}
+    .feature-card{background:var(--card);padding:1rem;border-radius:1rem;color:var(--white); box-shadow: 0 8px 24px rgba(2,6,23,0.5);}
+    .feature-card h3{margin:0 0 0.5rem 0;font-family:"Poppins"; color:var(--white)}
+
+    /* Calculator / Budgeting Section */
+    #calculator{margin-top:1.5rem;padding:1rem}
+    .calc-wrapper{display:grid;grid-template-columns:1fr;gap:1rem}
+    .calc-panel{background:var(--card);padding:1rem;border-radius:1rem;color:var(--white);box-shadow: 0 10px 30px rgba(0,0,0,0.5)}
+    .input-row{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:0.5rem}
+    label{font-size:0.85rem;color:var(--slate)}
+    input[type="number"], input[type="text"], input[type="date"], select, textarea{
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:0.65rem 0.75rem;border-radius:10px;color:var(--white);font-weight:600;
+      transition: box-shadow var(--transition), border-color var(--transition);
+      font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+      color-scheme: dark;
+    }
+    body.light-theme input[type="date"] { color-scheme: light; }
+    input:focus, select:focus, textarea:focus{outline:none; box-shadow:0 6px 20px rgba(57,255,20,0.06); border-color:rgba(57,255,20,0.12)}
+
+    select {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.7rem top 50%;
+        background-size: 0.65rem auto;
+        padding-right: 2rem;
+    }
+    select option {
+        background-color: var(--card);
+        color: var(--white);
+        font-family: "Open Sans", system-ui, -apple-system, sans-serif;
+        padding: 10px;
+    }
+    body.light-theme select option {
+        background-color: #FFFFFF;
+        color: var(--navy);
+    }
+
+    .expense-list{display:flex;flex-direction:column;gap:0.6rem; margin-top:0.75rem}
+    
+    /* --- Responsive Grid for Expense Row --- */
+    /* Desktop Default */
+    .expense-row {
+        display: grid;
+        grid-template-columns: 4fr 2fr 50px; /* More space for details, less for amount */
+        gap: 0.75rem; 
+        align-items: center; 
+        padding: 0.75rem; 
+        border-radius: 10px; 
+        background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
+        border: 1px solid rgba(255,255,255,0.02);
+    }
+    
+    /* Mobile Stack (Max width 768px) */
+    @media (max-width: 768px) {
+        .expense-row {
+            grid-template-columns: 1fr 50px; /* Content | Delete */
+            grid-template-rows: auto auto;
+            grid-template-areas: 
+                "details details"
+                "amount remove";
+            gap: 0.6rem;
+            padding: 0.9rem;
+        }
+        
+        .details-col { grid-area: details; }
+        .amount-col { grid-area: amount; }
+        
+        .expense-remove-col { 
+            grid-area: remove; 
+            border-left: none !important; /* Remove vertical divider on mobile */
+            justify-content: flex-end;
+        }
+        
+        .expense-meta-row {
+            margin-top: 0.5rem; /* Extra breathing room on mobile */
+        }
+    }
+
+    .details-col { width: 100%; }
+    
+    .expense-meta-row {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.35rem;
+    }
+    .expense-meta-row input[type="date"], .expense-meta-row select {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.5rem;
+        flex: 1;
+        min-width: 0; /* Prevents flex overflow */
+    }
+
+    .expense-name{font-weight:600; width: 100%;}
+    .expense-amount{text-align:right; width: 100%; font-size: 1rem;}
+    
+    /* Separated Delete Button Column */
+    .expense-remove-col {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid rgba(255,255,255,0.1);
+        padding-left: 0.5rem;
+        height: 100%;
+    }
+    .expense-remove{
+        background:transparent;
+        border:0;
+        color: rgba(255, 100, 100, 0.9); 
+        font-size:1.2rem;
+        cursor:pointer;
+        transition: all 0.2s ease;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+    }
+    .expense-remove:hover {
+        color: #ff4d4d;
+        background: rgba(255, 100, 100, 0.1);
+        transform: scale(1.05);
+    }
+    .small-muted{font-size:0.85rem;color:var(--slate)}
+
+    .summary{display:grid;grid-template-columns:1fr 1fr; gap:0.75rem;align-items:center}
+    .summary-card{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent); padding:0.85rem; border-radius:12px}
+    .summary-card h4{margin:0 0 0.35rem 0;color:var(--white);font-family:"Poppins"}
+    .result-large{font-family:"Poppins"; font-size:1.5rem; color:var(--white); margin:0.2rem 0}
+
+    /* Progress bar */
+    .progress-wrap{background:rgba(255,255,255,0.04);height:14px;border-radius:999px;overflow:hidden}
+    #spend-progress{height:100%;width:0%;background:linear-gradient(90deg,var(--neon), #9affb6);border-radius:999px;transition: width 450ms cubic-bezier(.2,.9,.3,1)}
+
+    /* Blink Animation */
+    @keyframes soft-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(255, 173, 173, 0.4); border-color: rgba(255, 100, 100, 0.3); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 173, 173, 0); border-color: rgba(255, 173, 173, 0.8); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 173, 173, 0); border-color: rgba(255, 100, 100, 0.3); }
+    }
+    .blink-active {
+        animation: soft-pulse 2s infinite;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: #39FF14; color: #000; padding: 0.8rem 1.5rem; border-radius: 99px;
+      font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 3000;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+
+    /* Custom Modal */
+    .modal-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:2000;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity 0.2s}
+    .modal-backdrop.active{opacity:1;pointer-events:all}
+    .modal{background:var(--card);padding:1.5rem;border-radius:var(--radius-xl);max-width:400px;width:90%;box-shadow:0 20px 50px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);max-height:85vh;overflow-y:auto;}
+    .modal h3{margin:0 0 0.5rem 0;color:var(--white);font-family:"Poppins"}
+    .modal-actions{display:flex;gap:1rem;justify-content:flex-end;margin-top:1.5rem}
+    
+    .ai-content ul { padding-left: 1.2rem; color: var(--slate); }
+    .ai-content li { margin-bottom: 0.5rem; }
+    .ai-content strong { color: var(--white); }
+
+    .loading-pulse { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; opacity: 0.7; pointer-events:none; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+
+    /* Back to top */
+    #back-to-top{
+      position:fixed;right:1rem;bottom:1.25rem;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--neon);color:#012;box-shadow:0 8px 30px rgba(2,6,23,0.5); border:0;cursor:pointer;transform:translateY(20px);opacity:0;pointer-events:none;transition:all 220ms;
+      z-index:1200;
+    }
+    #back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+    /* Footer */
+    footer{margin-top:2rem;padding:1.5rem;border-top:1px solid rgba(255,255,255,0.03); color:var(--slate)}
+    .footer-grid{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+
+    .muted{color:var(--slate)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:0.55rem 0.75rem;border-radius:10px;color:var(--white);cursor:pointer;font-family:inherit;font-weight:600}
+    .btn-ghost:hover{background:rgba(255,255,255,0.05)}
+    .btn{padding:0.6rem 0.9rem;border-radius:10px;border:0;background:var(--neon);color:#021;font-weight:700;cursor:pointer;font-family:inherit}
+    .hidden{display:none}
+
+    /* Mobile Responsiveness for new Grid */
+    @media (max-width: 880px){
+      nav#main-nav{position:fixed; right:1rem; top:64px; background:var(--card); padding:0.75rem;border-radius:12px; flex-direction:column; gap:0.25rem; display:none}
+      nav#main-nav.show{display:flex}
+      #nav-toggle{display:inline-flex}
+      .container{padding:0 0.5rem}
+      .grid-3{grid-template-columns:1fr}
+      .summary{grid-template-columns:1fr}
+      
+      /* Stack layout on mobile for calculator wrapper */
+      .calc-wrapper { grid-template-columns: 1fr !important; }
+      #hero { grid-template-columns: 1fr !important; }
+    }
+
+    @media (min-width: 880px){
+      .grid-3{grid-template-columns:repeat(3,1fr)}
+      #hero{grid-template-columns: 1fr 420px}
+      .calc-wrapper{grid-template-columns: 1fr 360px}
+    }
+
+    @media (min-width: 1100px){
+      .container{padding:0 1.25rem}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important}
+    }
+  </style>
+</head>
+<body class="dark-theme" data-theme="dark">
+  <header>
+    <div class="container" role="banner">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">MS</div>
+        <div>
+          <h1>Money Saver</h1>
+          <div class="small-muted">Automate operations • Cut costs • Scale smarter</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:0.5rem">
+        <button id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <nav id="main-nav" role="navigation" aria-label="Main navigation">
+          <a href="#features">Features</a>
+          <a href="#calculator">Calculator</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button id="theme-toggle" aria-pressed="false" title="Toggle theme" class="btn-ghost" style="margin-right:0.5rem">
+          <i class="fa fa-moon-o" aria-hidden="true"></i> <span class="small-muted" style="margin-left:0.35rem">Theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO & FEATURES -->
+    <section id="hero" class="reveal" aria-labelledby="hero-heading">
+      <div class="hero-card">
+        <div class="hero-top">
+          <div class="hero-copy">
+            <h2 id="hero-heading">Money Saver — Automate operations, cut costs, scale smarter.</h2>
+            <p>Custom AI systems that strip waste from your P&amp;L. Built for enterprise teams who need measurable savings and reliable automation.</p>
+            <div class="hero-actions" style="margin-top:0.6rem">
+              <a class="btn-ghost" href="#calculator">Try budgeting</a>
+              <a class="btn-ghost" href="#contact">Contact Sales</a>
+            </div>
+          </div>
+
+          <aside style="min-width:220px;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-end">
+            <div class="stat" aria-hidden="true"><i class="fa fa-briefcase" style="opacity:0.9"></i> Enterprise-ready</div>
+            <div class="stat" aria-hidden="true"><i class="fa fa-bolt"></i> AI-driven</div>
+            <div class="stat" aria-hidden="true">ROI-focused</div>
+          </aside>
+        </div>
+
+        <div style="display:flex;gap:0.8rem;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:0.6rem">
+          <div class="small-muted">Trusted by finance teams and operations leaders.</div>
+          <div class="small-muted">Pre-populated demo budget below • Save & export</div>
+        </div>
+      </div>
+
+      <!-- Mini feature cards (FEATURES SECTION) -->
+      <div id="features" style="display:flex;gap:1rem;flex-direction:column;margin-top:0.8rem;scroll-margin-top:80px">
+        <div class="grid-3">
+          <div class="feature-card reveal">
+            <h3><i class="fa fa-cog" aria-hidden="true"></i> Automation</h3>
+            <p class="muted">Reduce manual reconciliations and repetitive tasks via custom AI workflows.</p>
+          </div>
+          <div class="feature-card reveal">
+            <h3><i class="fa fa-pie-chart" aria-hidden="true"></i> Insights</h3>
+            <p class="muted">Actionable expense analytics and anomaly detection for better decisions.</p>
+          </div>
+          <div class="feature-card reveal">
+            <h3><i class="fa fa-lock" aria-hidden="true"></i> Enterprise-grade</h3>
+            <p class="muted">Security, SLAs, and integrations tuned for high-ticket clients.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALCULATOR / BUDGETING -->
+    <section id="calculator" class="reveal" aria-labelledby="calculator-heading" style="margin-top:1.5rem">
+      <h2 id="calculator-heading" style="font-family:Poppins;color:var(--white)">Budgeting Calculator</h2>
+      <p class="small-muted">Live demo: edit amounts and see instant results. Data persists to your browser.</p>
+
+      <div class="calc-wrapper" style="margin-top:0.9rem">
+        <!-- LEFT: Inputs & expense list -->
+        <div class="calc-panel" aria-live="polite">
+          <div class="input-row">
+            <label for="total-income">Total Income (monthly)</label>
+            <input id="total-income" type="number" inputmode="numeric" min="0" value="150000" aria-describedby="income-help" />
+          </div>
+
+          <div class="input-row">
+            <label for="reserved-savings">Reserved Savings (Goal)</label>
+            <input id="reserved-savings" type="number" inputmode="numeric" min="0" value="0" />
+            <div class="small-muted">Amount you want to reserve/save before expenses.</div>
+          </div>
+
+          <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.75rem;flex-wrap:wrap">
+            <button id="add-expense" class="btn-ghost" aria-controls="expense-list"><i class="fa fa-plus"></i> Add expense</button>
+            <button id="add-emi" class="btn-ghost" title="Add EMI/Loan row"><i class="fa fa-credit-card"></i> Add EMI / Loan</button>
+            <button id="export-csv" class="btn-ghost" title="Export budget summary as CSV"><i class="fa fa-download"></i> Export CSV</button>
+            <button id="clear-non-recurring" class="btn-ghost" title="Remove all expenses not marked as recurring" style="color:#ff8f8f"><i class="fa fa-eraser"></i> Clear one-offs</button>
+            <button id="smart-categorize" class="btn-ghost" style="color:var(--neon); border-color:rgba(57,255,20,0.3)" title="Auto-assign categories using AI">✨ Smart Label</button>
+          </div>
+
+          <div id="expense-list" class="expense-list" aria-live="polite" style="margin-top:0.75rem">
+            <!-- Expense rows are injected here by JS -->
+          </div>
+        </div>
+
+        <!-- RIGHT: Summary -->
+        <aside class="calc-panel" aria-label="Budget summary">
+          <div class="summary">
+            <div class="summary-card">
+              <h4>Expense Total</h4>
+              <div id="expense-total" class="result-large">₹0</div>
+              <div class="small-muted">Sum of all expenses</div>
+            </div>
+
+            <div class="summary-card">
+              <h4>Balance Total</h4>
+              <div id="savings" class="result-large">₹0</div>
+              <div id="percent-saved" class="small-muted">0% saved</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem">
+            <div class="small-muted">Income consumed</div>
+            <div class="progress-wrap" style="margin-top:0.5rem">
+              <div id="spend-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-direction:column">
+            <button id="save-data" class="btn-ghost" style="border-color:var(--neon); color: var(--neon);">Save Changes</button>
+            <button id="clear-storage" class="btn-ghost">Reset demo data</button>
+            <!-- Start Fresh with Blink Class -->
+            <button id="start-fresh" class="btn-ghost blink-active" style="border-color:rgba(255, 100, 100, 0.3); color: #ffadad;">Start Fresh (Clear All)</button>
+            <button id="suggestions" class="btn" style="display:flex; justify-content:center; gap:0.5rem; align-items:center;">✨ Get AI suggestions</button>
+            <div class="small-muted" style="margin-top:0.6rem">Uses Gemini 2.5 to analyze your budget and suggest improvements.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="margin-top:1.5rem" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" style="font-family:Poppins;color:var(--white)">Contact</h2>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.75rem">
+        <div style="flex:1;min-width:300px" class="feature-card">
+          <form id="contact-form" aria-label="Contact form">
+            <div class="input-row"><label for="name">Name</label><input id="name" type="text" /></div>
+            <div class="input-row"><label for="email">Email</label><input id="email" type="text" /></div>
+            <div class="input-row"><label for="message">Message</label><textarea id="message" rows="4" style="width:100%;padding:0.75rem;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);color:var(--white)"></textarea></div>
+            <div style="display:flex;gap:0.6rem"><button type="submit" class="btn">Send</button><button type="reset" class="btn-ghost">Reset</button></div>
+          </form>
+        </div>
+
+        <div style="flex:1;min-width:200px" class="feature-card">
+          <h4 style="margin-top:0">Reach us</h4>
+          <p class="small-muted">email: hello@money-saver.example</p>
+          <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
+            <a class="btn-ghost" href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+            <a class="btn-ghost" href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+            <a class="btn-ghost" href="#" aria-label="Github"><i class="fa fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container footer-grid">
+      <div>&copy; <span id="year"></span> Money Saver — All rights reserved.</div>
+      <div class="muted">Built with ❤️ — Dark mode by default. Toggle in the header.</div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top" title="Back to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+
+  <!-- Toast -->
+  <div id="toast">Data saved locally!</div>
+
+  <!-- Custom Modal Structure -->
+  <div id="app-modal-overlay" class="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">Confirm Action</h3>
+      <div id="modal-message" class="muted">Are you sure?</div>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn-ghost">Cancel</button>
+        <button id="modal-confirm" class="btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      window.MoneySaverApp = {
+        init: init,
+        addExpense: addExpense,
+        removeExpense: removeExpense,
+        toggleTheme: toggleTheme
+      };
+
+      /* -------------------------
+         Constants & selectors
+         ------------------------- */
+      const QS = (s, ctx=document) => ctx.querySelector(s);
+      const QSA = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+      const totalIncomeEl = QS('#total-income');
+      const reservedSavingsEl = QS('#reserved-savings');
+      const expenseListEl = QS('#expense-list');
+      const addExpenseBtn = QS('#add-expense');
+      const addEmiBtn = QS('#add-emi');
+      const expenseTotalEl = QS('#expense-total');
+      const savingsEl = QS('#savings');
+      const percentSavedEl = QS('#percent-saved');
+      const spendProgress = QS('#spend-progress');
+      const clearStorageBtn = QS('#clear-storage');
+      const saveDataBtn = QS('#save-data'); // NEW Save Button
+      const startFreshBtn = QS('#start-fresh');
+      const exportCsvBtn = QS('#export-csv');
+      const clearNonRecurringBtn = QS('#clear-non-recurring');
+      const smartCategorizeBtn = QS('#smart-categorize');
+      const suggestionsBtn = QS('#suggestions');
+      const themeToggleBtn = QS('#theme-toggle');
+      const navToggleBtn = QS('#nav-toggle');
+      const mainNav = QS('#main-nav');
+      const backToTopBtn = QS('#back-to-top');
+      const yearEl = QS('#year');
+      const toast = QS('#toast');
+
+      // Modal Elements
+      const modalOverlay = QS('#app-modal-overlay');
+      const modalTitle = QS('#modal-title');
+      const modalMessage = QS('#modal-message');
+      const modalConfirmBtn = QS('#modal-confirm');
+      const modalCancelBtn = QS('#modal-cancel');
+      let currentModalAction = null;
+
+      // Gemini API Key
+      const apiKey = ""; 
+
+      // Local storage key
+      const STORAGE_KEY = 'money-saver:v1';
+
+      // Debounce helper
+      function debounce(fn, wait) {
+        let t;
+        return function(...args) {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), wait);
+        };
+      }
+
+      // Small unique id generator
+      function uid(prefix='id') {
+        return prefix + '-' + Math.random().toString(36).slice(2,9);
+      }
+
+      // Default seed data
+      const DEFAULT_DATA = {
+        income: 150000,
+        reservedSavings: 20000,
+        expenses: [
+          { id: uid('exp'), date: new Date().toISOString().split('T')[0], name: 'Petrol', type: 'Petrol', amount: 8000, recurring: true },
+          { id: uid('exp'), date: new Date().toISOString().split('T')[0], name: 'Team Lunch', type: 'Food', amount: 3000, recurring: false },
+          { id: uid('exp'), date: new Date().toISOString().split('T')[0], name: 'Rent', type: 'Rent', amount: 25000, recurring: true },
+          { id: uid('exp'), date: new Date().toISOString().split('T')[0], name: 'Netflix', type: 'General', amount: 600, recurring: true },
+          { id: uid('exp'), date: new Date().toISOString().split('T')[0], name: 'Business Loan', type: 'EMI/Loan', amount: 20000, recurring: true }
+        ],
+        theme: 'dark'
+      };
+
+      let state = {
+        income: DEFAULT_DATA.income,
+        reservedSavings: DEFAULT_DATA.reservedSavings,
+        expenses: [...DEFAULT_DATA.expenses],
+        theme: DEFAULT_DATA.theme
+      };
+
+      /* -------------------------
+         Storage helpers
+         ------------------------- */
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          console.warn('Could not save state to localStorage', e);
+        }
+      }
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) {
+          console.warn('Could not parse saved state', e);
+          return null;
+        }
+      }
+      function resetToDefaults() {
+        state = {
+          income: DEFAULT_DATA.income,
+          reservedSavings: DEFAULT_DATA.reservedSavings,
+          expenses: [...DEFAULT_DATA.expenses],
+          theme: DEFAULT_DATA.theme
+        };
+        saveState();
+        renderAll();
+      }
+
+      function showToast(msg) {
+          toast.textContent = msg;
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+      /* -------------------------
+         Render & DOM utilities
+         ------------------------- */
+      function formatCurrency(n) {
+        try {
+          return '₹' + new Intl.NumberFormat('en-IN').format(Number(n) || 0);
+        } catch (e) {
+          return '₹' + (Number(n) || 0).toFixed(0);
+        }
+      }
+
+      function renderExpenseRow(exp) {
+        const row = document.createElement('div');
+        row.className = 'expense-row';
+        row.setAttribute('data-id', exp.id);
+        
+        row.innerHTML = `
+          <div class="details-col">
+            <input class="expense-name" type="text" value="${escapeHtml(exp.name)}" aria-label="Expense name" placeholder="Expense Name" />
+            <div class="expense-meta-row">
+               <input class="expense-date" type="date" value="${exp.date || new Date().toISOString().split('T')[0]}" aria-label="Expense Date" />
+               <select class="expense-type" aria-label="Expense type">
+                ${renderTypeOptions(exp.type)}
+              </select>
+            </div>
+          </div>
+          
+          <div class="amount-col">
+            <input class="expense-amount" type="number" min="0" value="${Number(exp.amount) || 0}" aria-label="Expense amount" placeholder="₹0" />
+          </div>
+
+          <div class="expense-remove-col">
+            <button class="expense-remove" title="Remove expense" aria-label="Remove expense"><i class="fa fa-trash"></i></button>
+          </div>
+        `;
+        
+        const dateInput = row.querySelector('.expense-date');
+        const nameInput = row.querySelector('.expense-name');
+        const typeSelect = row.querySelector('.expense-type');
+        const amountInput = row.querySelector('.expense-amount');
+        const removeBtn = row.querySelector('.expense-remove');
+
+        dateInput.addEventListener('change', () => {
+          const id = row.dataset.id;
+          const e = state.expenses.find(x => x.id === id);
+          if (e) {
+            e.date = dateInput.value;
+            saveState();
+          }
+        });
+
+        nameInput.addEventListener('input', debounce(() => {
+          const id = row.dataset.id;
+          const e = state.expenses.find(x => x.id === id);
+          if (e) { 
+             e.name = nameInput.value.trim() || 'Unnamed'; 
+             saveState(); 
+          }
+        }, 300));
+
+        typeSelect.addEventListener('change', () => {
+          const id = row.dataset.id;
+          const e = state.expenses.find(x => x.id === id);
+          if (e) { 
+            e.type = typeSelect.value; 
+            // Update name to match type (Requested Feature)
+            e.name = typeSelect.value; 
+            nameInput.value = typeSelect.value;
+            saveState(); 
+          }
+        });
+
+        amountInput.addEventListener('input', debounce(() => {
+          const id = row.dataset.id;
+          const e = state.expenses.find(x => x.id === id);
+          const val = Number(amountInput.value);
+          if (e && !Number.isNaN(val) && val >= 0) {
+            e.amount = val;
+            saveState();
+            renderSummary(); 
+          } else {
+            amountInput.style.boxShadow = '0 6px 18px rgba(255,0,0,0.12)';
+          }
+        }, 250));
+
+        removeBtn.addEventListener('click', () => {
+          removeExpense(row.dataset.id);
+        });
+
+        return row;
+      }
+
+      function renderTypeOptions(selected) {
+        // Removed 'Salaries' as requested
+        const types = ['General','Petrol','Food','Rent','Utilities','EMI/Loan','Other'];
+        return types.map(t => `<option value="${t}" ${t===selected?'selected':''}>${t}</option>`).join('');
+      }
+
+      function renderExpenses() {
+        expenseListEl.innerHTML = '';
+        state.expenses.forEach(exp => {
+          expenseListEl.appendChild(renderExpenseRow(exp));
+        });
+      }
+
+      function renderSummary() {
+        const expenseTotal = state.expenses.reduce((acc, e) => acc + (Number(e.amount) || 0), 0);
+        const income = Number(state.income) || 0;
+        const reserved = Number(state.reservedSavings) || 0;
+        
+        const balanceTotal = income - expenseTotal - reserved;
+        
+        const percentSaved = income > 0 ? Math.max(0, Math.round((balanceTotal / income) * 100)) : 0;
+        const percentConsumed = income > 0 ? Math.min(100, Math.round(((expenseTotal + reserved) / income) * 100)) : 0;
+
+        expenseTotalEl.textContent = formatCurrency(expenseTotal);
+        savingsEl.textContent = (balanceTotal >= 0) ? formatCurrency(balanceTotal) : `Deficit ${formatCurrency(balanceTotal)}`;
+        percentSavedEl.textContent = `${percentSaved}% remaining`;
+
+        spendProgress.style.width = percentConsumed + '%';
+        spendProgress.setAttribute('aria-valuenow', percentConsumed);
+
+        if (balanceTotal < 0) {
+          savingsEl.style.color = '#ff6b6b';
+        } else {
+          savingsEl.style.color = 'var(--white)';
+        }
+      }
+
+      function renderAll() {
+        totalIncomeEl.value = Number(state.income) || 0;
+        reservedSavingsEl.value = Number(state.reservedSavings) || 0;
+        renderExpenses();
+        renderSummary();
+      }
+
+      function init() {
+        const saved = loadState();
+        if (saved && typeof saved === 'object') {
+          state.income = saved.income !== undefined ? saved.income : DEFAULT_DATA.income;
+          state.reservedSavings = saved.reservedSavings !== undefined ? saved.reservedSavings : DEFAULT_DATA.reservedSavings;
+          state.expenses = Array.isArray(saved.expenses) ? saved.expenses : [...DEFAULT_DATA.expenses];
+          state.theme = saved.theme || DEFAULT_DATA.theme;
+        } else {
+          state = {
+            income: DEFAULT_DATA.income,
+            reservedSavings: DEFAULT_DATA.reservedSavings,
+            expenses: [...DEFAULT_DATA.expenses],
+            theme: DEFAULT_DATA.theme
+          };
+          saveState();
+        }
+
+        applyTheme(state.theme, false);
+        renderAll();
+        attachEvents();
+        initReveals();
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      function addExpense(opts={}) {
+        const e = {
+          id: uid('exp'),
+          date: new Date().toISOString().split('T')[0],
+          name: opts.name || 'New expense',
+          type: opts.type || 'General',
+          amount: Number(opts.amount) || 0,
+          recurring: !!opts.recurring
+        };
+        state.expenses.push(e);
+        saveState();
+        renderAll();
+        return e.id;
+      }
+
+      function removeExpense(id) {
+        state.expenses = state.expenses.filter(x => x.id !== id);
+        saveState();
+        renderAll();
+      }
+
+      function toggleTheme() {
+        const newTheme = state.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme, true);
+        state.theme = newTheme;
+        saveState();
+      }
+
+      async function callGemini(prompt, jsonMode=false) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const requestBody = { contents: [{ parts: [{ text: prompt }] }] };
+        if (jsonMode) { requestBody.generationConfig = { responseMimeType: "application/json" } }
+
+        const delays = [1000, 2000, 4000];
+        for (let i = 0; i <= delays.length; i++) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text;
+            } catch (e) {
+                if (i === delays.length) throw e;
+                await new Promise(r => setTimeout(r, delays[i]));
+            }
+        }
+      }
+
+      async function smartCategorize() {
+        const btn = smartCategorizeBtn;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<i class="fa fa-circle-o-notch fa-spin"></i> Labeling...`;
+        btn.classList.add('loading-pulse');
+
+        const expenseNames = state.expenses.map(e => e.name);
+        const categories = ['General','Petrol','Food','Rent','Utilities','EMI/Loan','Other'];
+        
+        const prompt = `You are a financial assistant. Map the following expense names to the most appropriate category from this list: ${JSON.stringify(categories)}. 
+        Expense names: ${JSON.stringify(expenseNames)}.
+        Return a JSON object where keys are the exact expense names provided and values are the chosen categories.`;
+
+        try {
+            const responseText = await callGemini(prompt, true);
+            const mapping = JSON.parse(responseText);
+            
+            let changesCount = 0;
+            state.expenses.forEach(exp => {
+                if (mapping[exp.name] && mapping[exp.name] !== exp.type) {
+                    exp.type = mapping[exp.name];
+                    changesCount++;
+                }
+            });
+
+            if (changesCount > 0) {
+                saveState();
+                renderAll();
+                showModal('Success', `Updated ${changesCount} labels using AI!`, null, true);
+            } else {
+                showModal('No Changes', 'All labels look correct according to the AI.', null, true);
+            }
+
+        } catch (err) {
+            console.error(err);
+            showModal('AI Error', 'Could not connect to Gemini. Please try again later.', null, true);
+        } finally {
+            btn.innerHTML = originalText;
+            btn.classList.remove('loading-pulse');
+        }
+      }
+
+      async function analyzeBudget() {
+        const btn = suggestionsBtn;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<i class="fa fa-circle-o-notch fa-spin"></i> Analyzing...`;
+        btn.classList.add('loading-pulse');
+
+        const expenseSummary = state.expenses.map(e => `${e.name}: ${e.amount} (${e.type})`).join(', ');
+        const prompt = `Analyze this monthly budget. Income: ${state.income}. Reserved Savings: ${state.reservedSavings}. Expenses: [${expenseSummary}]. 
+        1. Calculate disposable income.
+        2. Identify 1 major spending leak or anomaly.
+        3. Provide 3 specific, short actionable bullet points to save money based on these specific items.
+        Format the output as simple HTML using <ul>, <li>, and <strong> tags. Do not use markdown. Keep it concise.`;
+
+        try {
+            const analysis = await callGemini(prompt, false);
+            modalMessage.innerHTML = `<div class="ai-content">${analysis}</div>`;
+            showModal('AI Budget Analysis', '', null, true); 
+        } catch (err) {
+            console.error(err);
+            showModal('AI Error', 'Could not generate insights. Please try again later.', null, true);
+        } finally {
+            btn.innerHTML = originalText;
+            btn.classList.remove('loading-pulse');
+        }
+      }
+
+      function showModal(title, message, onConfirm, isAlert=false) {
+        modalTitle.textContent = title;
+        if (message) modalMessage.textContent = message;
+        currentModalAction = onConfirm;
+        modalOverlay.classList.add('active');
+        if(isAlert) {
+            modalCancelBtn.style.display = 'none';
+            modalConfirmBtn.textContent = 'OK';
+        } else {
+            modalCancelBtn.style.display = 'inline-block';
+            modalConfirmBtn.textContent = 'Confirm';
+        }
+        modalConfirmBtn.focus();
+      }
+
+      function hideModal() {
+        modalOverlay.classList.remove('active');
+        currentModalAction = null;
+      }
+
+      modalCancelBtn.addEventListener('click', hideModal);
+      modalConfirmBtn.addEventListener('click', () => {
+        if (currentModalAction) currentModalAction();
+        hideModal();
+      });
+
+      function attachEvents() {
+        totalIncomeEl.addEventListener('input', debounce(() => {
+          const val = Number(totalIncomeEl.value);
+          if (!Number.isNaN(val) && val >= 0) {
+            state.income = val;
+            saveState();
+            renderAll();
+          } else {
+            totalIncomeEl.style.boxShadow = '0 6px 18px rgba(255,0,0,0.12)';
+          }
+        }, 300));
+
+        reservedSavingsEl.addEventListener('input', debounce(() => {
+          const val = Number(reservedSavingsEl.value);
+          if (!Number.isNaN(val) && val >= 0) {
+            state.reservedSavings = val;
+            saveState();
+            renderSummary(); 
+          } else {
+            reservedSavingsEl.style.boxShadow = '0 6px 18px rgba(255,0,0,0.12)';
+          }
+        }, 300));
+
+        addExpenseBtn.addEventListener('click', () => {
+          const id = addExpense({name:'New expense', type:'General', amount:0, recurring:false});
+          setTimeout(() => {
+            const el = expenseListEl.querySelector(`[data-id="${id}"] .expense-name`);
+            if (el) el.focus();
+          }, 100);
+        });
+
+        addEmiBtn.addEventListener('click', () => {
+          const id = addExpense({name:'EMI', type:'EMI/Loan', amount:0, recurring:true});
+          setTimeout(() => {
+            const el = expenseListEl.querySelector(`[data-id="${id}"] .expense-amount`);
+            if (el) el.focus();
+          }, 100);
+        });
+
+        clearNonRecurringBtn.addEventListener('click', () => {
+          const hasOneOffs = state.expenses.some(e => !e.recurring);
+          if (!hasOneOffs) {
+            showModal('No one-offs', 'There are no non-recurring expenses to clear.', null, true);
+            return;
+          }
+          showModal('Clear one-offs?', 'This will remove all expenses not marked as "Recurring".', () => {
+             state.expenses = state.expenses.filter(e => e.recurring === true);
+             saveState();
+             renderAll();
+          });
+        });
+
+        smartCategorizeBtn.addEventListener('click', smartCategorize);
+        suggestionsBtn.addEventListener('click', analyzeBudget);
+
+        clearStorageBtn.addEventListener('click', () => {
+          showModal('Reset Data?', 'This will revert all budget data to the default demo set.', () => {
+            localStorage.removeItem(STORAGE_KEY);
+            resetToDefaults();
+          });
+        });
+
+        saveDataBtn.addEventListener('click', () => {
+            saveState();
+            showToast("Data saved locally!");
+        });
+
+        startFreshBtn.addEventListener('click', () => {
+          showModal('Start Fresh?', 'This will clear all your expenses and income data so you can build from scratch.', () => {
+             state.expenses = [];
+             state.income = 0;
+             state.reservedSavings = 0;
+             saveState();
+             renderAll();
+          });
+        });
+
+        exportCsvBtn.addEventListener('click', () => {
+          const csv = exportToCsv();
+          const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'money-saver-budget.csv';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        });
+
+        themeToggleBtn.addEventListener('click', () => {
+          toggleTheme();
+        });
+
+        navToggleBtn.addEventListener('click', () => {
+          const expanded = navToggleBtn.getAttribute('aria-expanded') === 'true';
+          navToggleBtn.setAttribute('aria-expanded', String(!expanded));
+          mainNav.classList.toggle('show');
+        });
+
+        QSA('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({behavior:'smooth', block:'start'});
+              mainNav.classList.remove('show');
+              navToggleBtn.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+
+        window.addEventListener('scroll', debounce(() => {
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
+          } else {
+            backToTopBtn.classList.remove('show');
+          }
+        }, 80));
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({top:0, behavior:'smooth'});
+          backToTopBtn.blur();
+        });
+
+        const contactForm = QS('#contact-form');
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          showModal('Message Sent', 'Thanks! This is a demo contact form. Hook up your backend to submit.', null, true);
+          contactForm.reset();
+        });
+      }
+
+      function applyTheme(theme, animate=true) {
+        const body = document.body;
+        if (theme === 'light') {
+          body.classList.remove('dark-theme');
+          body.classList.add('light-theme');
+          themeToggleBtn.innerHTML = '<i class="fa fa-sun-o" aria-hidden="true"></i> <span class="small-muted" style="margin-left:0.35rem">Light</span>';
+          themeToggleBtn.setAttribute('aria-pressed', 'true');
+        } else {
+          body.classList.remove('light-theme');
+          body.classList.add('dark-theme');
+          themeToggleBtn.innerHTML = '<i class="fa fa-moon-o" aria-hidden="true"></i> <span class="small-muted" style="margin-left:0.35rem">Dark</span>';
+          themeToggleBtn.setAttribute('aria-pressed', 'false');
+        }
+      }
+
+      function initReveals() {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) return;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              entry.target.style.transition = 'transform 520ms cubic-bezier(.2,.9,.3,1), opacity 520ms';
+              entry.target.style.transform = 'translateY(0)';
+              entry.target.style.opacity = '1';
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {threshold:0.15});
+
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.style.transform = 'translateY(14px)';
+          el.style.opacity = '0';
+          observer.observe(el);
+        });
+      }
+
+      function exportToCsv() {
+        const headers = ['Date', 'Name','Type','Amount','Recurring'];
+        const rows = state.expenses.map(e => [e.date, e.name, e.type, Number(e.amount) || 0, e.recurring ? 'Yes' : 'No']);
+        const incomeRow = [['Total Income', '', Number(state.income) || 0, '']];
+        const reservedRow = [['Reserved Savings', '', Number(state.reservedSavings) || 0, '']];
+        const csv = [headers, ...rows, [], ...incomeRow, ...reservedRow].map(r => r.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
+        return csv;
+      }
+
+      function escapeHtml(unsafe) {
+        return unsafe.replace(/[&<"'>]/g, function(m) {
+          return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        init();
+      });
+
+      Object.defineProperty(window.MoneySaverApp, 'state', {
+        get: function(){ return JSON.parse(JSON.stringify(state)); }
+      });
+
+    })();
+  </script>
+</body>
+</html>
