@@ -96,23 +96,89 @@
     .cta:focus{outline:3px solid rgba(57,255,20,0.12)}
 
     /* Hero */
-    #hero{display:grid;grid-template-columns:1fr;gap:1.25rem;padding:2rem 1rem 3rem}
+    #hero{
+      padding: 2rem 0 3rem; 
+      display: block; /* Changed from grid to block for full width content */
+    }
     .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: var(--card); /* Solid dark card background */
       border-radius: var(--radius-2xl);
-      padding:1.5rem;
+      padding: 2.5rem; /* More padding */
       box-shadow: 0 12px 50px rgba(2,6,23,0.5);
-      display:flex; flex-direction:column; gap:1rem;
+      display:flex; flex-direction:column; gap:1.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
     }
-    .hero-top{display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;}
-    .hero-copy h2{font-family:"Poppins"; color:var(--white); margin:0; font-size:clamp(1.6rem,2.8vw,2.4rem);}
-    .hero-copy p{margin:0;color:var(--slate);font-size:1.05rem;}
-    .hero-actions{display:flex;gap:0.75rem;align-items:center;}
-    .meta-stats{display:flex;gap:0.75rem;align-items:center;}
-    .stat{
-      background:var(--card); padding:0.5rem 0.75rem;border-radius:10px; color:var(--white); font-weight:700; font-size:0.95rem;
-      display:flex; gap:0.5rem; align-items:center;
+    .hero-top{
+      display:flex; flex-direction: column; gap: 1rem; align-items: flex-start; /* Stack vertically, align left */
+      max-width: 800px; /* Limit width for readability */
     }
+    .hero-copy h2{
+      font-family:"Poppins"; 
+      color:var(--white); 
+      margin:0 0 1rem 0; 
+      font-size:clamp(1.8rem,3.5vw,2.8rem); /* Larger font size */
+      line-height: 1.2;
+    }
+    .hero-copy p{
+      margin:0 0 1.5rem 0;
+      color:var(--slate);
+      font-size:1.1rem;
+      line-height: 1.6;
+      max-width: 650px;
+    }
+    .hero-actions{
+      display:flex;gap:1rem;align-items:center; flex-wrap: wrap;
+    }
+    
+    /* Specific Button Styles for Hero */
+    .btn-primary-hero {
+        background: var(--neon);
+        color: #000;
+        font-weight: 700;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .btn-primary-hero:hover { transform: translateY(-2px); }
+
+    .btn-secondary-hero {
+        background: transparent;
+        color: var(--white);
+        border: 1px solid rgba(255,255,255,0.2);
+        font-weight: 600;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        transition: background 0.2s;
+    }
+    .btn-secondary-hero:hover { background: rgba(255,255,255,0.05); }
+
+    /* Tags Section */
+    .hero-tags {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+    .hero-tag {
+        background: rgba(255,255,255,0.05); /* Dark background pill */
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 999px; /* Pill shape */
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
 
     /* Features (PM Case Features Styles) */
     .pm-features-grid {
@@ -415,6 +481,100 @@
     .btn{padding:0.6rem 0.9rem;border-radius:10px;border:0;background:var(--neon);color:#021;font-weight:700;cursor:pointer;font-family:inherit}
     .hidden{display:none}
 
+    /* Contact Section Styling to Match Image */
+    #contact .feature-card {
+      padding: 0; /* Remove padding from card to let content fill nicely */
+      background: transparent; /* Remove card background */
+      box-shadow: none; /* Remove shadow */
+    }
+    
+    /* Contact Form Wrapper - Full Width */
+    .contact-wrapper {
+      background: var(--card);
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      width: 100%;
+    }
+
+    /* Reach Us Section Below Form */
+    .reach-us-section {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Input Fields Styling */
+    #contact input, #contact textarea {
+      background: rgba(0, 0, 0, 0.2); /* Darker background */
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+    }
+    #contact input:focus, #contact textarea:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.1);
+    }
+    
+    /* Label Styling */
+    #contact label {
+      color: var(--slate);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    /* Contact Buttons */
+    .contact-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .btn-send {
+      background: var(--neon);
+      color: #000;
+      font-weight: 700;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-reset {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--white);
+      font-weight: 600;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      color: var(--white);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .social-icon:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--neon);
+    }
+
     /* --- RESPONSIVE BREAKPOINTS --- */
     
     /* Tablet & Up: 2 columns */
@@ -426,7 +586,7 @@
       .pm-features-grid, .story-grid { grid-template-columns: repeat(3, 1fr); }
       .container{padding:0 1.25rem}
       .calc-wrapper{grid-template-columns: 1fr 360px}
-      #hero{grid-template-columns: 1fr 420px}
+      /* #hero{grid-template-columns: 1fr 420px} REMOVED to match block layout */
     }
 
     /* Mobile & Stacked Views (Small Screens or Simulator) */
@@ -437,26 +597,62 @@
       .container{padding:0 0.5rem}
       .summary{grid-template-columns:1fr}
       .calc-wrapper { grid-template-columns: 1fr !important; }
-      #hero { grid-template-columns: 1fr !important; }
+      /* #hero { grid-template-columns: 1fr !important; } */
       
-      /* Stack layout on mobile for expense row */
+      /* SAFE AREA FIX: Ensure bottom content isn't covered by floating buttons */
+      main {
+        padding-bottom: max(100px, env(safe-area-inset-bottom) + 60px);
+      }
+
+      /* MOBILE CARD LAYOUT FIXES */
       .expense-row {
-          grid-template-columns: 1fr 50px; /* Content | Delete */
+          display: grid;
+          /* Use explicit columns: Content gets space, Delete button gets fixed width */
+          grid-template-columns: 1fr 48px; 
+          /* Auto rows to fit content naturally without clipping */
           grid-template-rows: auto auto;
           grid-template-areas: 
               "details details"
               "amount remove";
-          gap: 0.6rem;
-          padding: 0.9rem;
+          gap: 0.75rem;
+          padding: 1rem;
+          /* Prevent clipping */
+          overflow: visible !important;
+          min-height: auto; /* Allow expansion */
       }
-      .details-col { grid-area: details; }
-      .amount-col { grid-area: amount; }
+
+      /* Area Assignments */
+      .details-col { grid-area: details; width: 100%; }
+      .amount-col { grid-area: amount; width: 100%; }
+      
+      /* Delete Button: Centered and accessible */
       .expense-remove-col { 
           grid-area: remove; 
           border-left: none !important;
           justify-content: flex-end;
+          align-items: flex-end; /* Align with input bottom */
+          padding-bottom: 4px; /* Optical alignment with input text */
       }
-      .expense-meta-row { margin-top: 0.5rem; }
+
+      /* INPUT VISIBILITY & TAP TARGETS */
+      .expense-amount {
+          width: 100% !important;
+          min-height: 48px !important; /* Standard mobile tap target */
+          font-size: 18px !important; /* Prevent iOS zoom & improve readbility */
+          padding: 12px !important;
+          box-sizing: border-box; /* Ensure padding doesn't break width */
+      }
+
+      /* Better spacing for the top half of the card */
+      .expense-meta-row { 
+          margin-top: 0.75rem; 
+          gap: 0.5rem;
+      }
+      
+      /* Make dropdowns and dates taller on mobile too */
+      .expense-meta-row input, .expense-meta-row select {
+          min-height: 44px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -500,24 +696,20 @@
       <div class="hero-card">
         <div class="hero-top">
           <div class="hero-copy">
-            <h2 id="hero-heading">Money Saver — Automate operations, cut costs, scale smarter.</h2>
-            <p>Custom AI systems that strip waste from your P&amp;L. Built for enterprise teams who need measurable savings and reliable automation.</p>
-            <div class="hero-actions" style="margin-top:0.6rem">
-              <a class="btn-ghost" href="#calculator">Try budgeting</a>
-              <a class="btn-ghost" href="#contact">Contact Sales</a>
+            <h2 id="hero-heading">Money Saver — Cut monthly operating expenses up to 30% with AI-driven automation.</h2>
+            <p>Custom AI systems that strip waste from your P&amp;L and automate repetitive finance tasks. Built for small businesses and finance teams who want fast, automated cost-savings and clear budget insights.</p>
+            <div class="hero-actions" style="margin-top:1.5rem">
+              <a class="btn-primary-hero" href="#calculator">Try Budgeting</a>
+              <a class="btn-secondary-hero" href="#case-study">Read Case Study</a>
+            </div>
+            <div class="hero-tags">
+                <span class="hero-tag">Enterprise-ready</span>
+                <span class="hero-tag">AI-driven</span>
+                <span class="hero-tag">ROI-focused</span>
             </div>
           </div>
 
-          <aside style="min-width:220px;display:flex;flex-direction:column;gap:0.6rem;align-items:flex-end">
-            <div class="stat" aria-hidden="true"><i class="fa fa-briefcase" style="opacity:0.9"></i> Enterprise-ready</div>
-            <div class="stat" aria-hidden="true"><i class="fa fa-bolt"></i> AI-driven</div>
-            <div class="stat" aria-hidden="true">ROI-focused</div>
-          </aside>
-        </div>
-
-        <div style="display:flex;gap:0.8rem;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:0.6rem">
-          <div class="small-muted">Trusted by finance teams and operations leaders.</div>
-          <div class="small-muted">Pre-populated demo budget below • Save & export</div>
+          <!-- Removed old stats sidebar to match image reference -->
         </div>
       </div>
     </section>
@@ -620,10 +812,14 @@
           </div>
 
           <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-direction:column">
-            <button id="save-data" class="btn-ghost" style="border-color:var(--neon); color: var(--neon);">Save Changes</button>
-            <button id="clear-storage" class="btn-ghost">Reset demo data</button>
-            <button id="start-fresh" class="btn-ghost blink-active" style="border-color:rgba(255, 100, 100, 0.3); color: #ffadad;">Start Fresh (Clear All)</button>
-            <button id="suggestions" class="btn" style="display:flex; justify-content:center; gap:0.5rem; align-items:center;">✨ Get AI suggestions</button>
+            <!-- Updated Save Button -->
+            <button id="save-data" class="btn-ghost" style="border-color:var(--neon); color: var(--neon); width: 100%;">Save</button>
+            <!-- Updated Reset Demo Button -->
+            <button id="clear-storage" class="btn-ghost" style="width: 100%;">Reset demo</button>
+            <!-- Updated Start Fresh Button (removed Clear All text) -->
+            <button id="start-fresh" class="btn-ghost blink-active" style="border-color:rgba(255, 100, 100, 0.3); color: #ffadad; width: 100%;">Start Fresh</button>
+            <!-- Updated AI Button -->
+            <button id="suggestions" class="btn" style="display:flex; justify-content:center; gap:0.5rem; align-items:center; width: 100%;">✨ Get AI suggestions</button>
             <div class="small-muted" style="margin-top:0.6rem">Uses Gemini 2.5 to analyze your budget and suggest improvements.</div>
           </div>
         </aside>
@@ -738,23 +934,33 @@
     <!-- CONTACT -->
     <section id="contact" style="margin-top:1.5rem" aria-labelledby="contact-heading">
       <h2 id="contact-heading" style="font-family:Poppins;color:var(--white)">Contact</h2>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.75rem">
-        <div style="flex:1;min-width:300px" class="feature-card">
-          <form id="contact-form" aria-label="Contact form">
-            <div class="input-row"><label for="name">Name</label><input id="name" type="text" /></div>
-            <div class="input-row"><label for="email">Email</label><input id="email" type="text" /></div>
-            <div class="input-row"><label for="message">Message</label><textarea id="message" rows="4" style="width:100%;padding:0.75rem;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);color:var(--white)"></textarea></div>
-            <div style="display:flex;gap:0.6rem"><button type="submit" class="btn">Send</button><button type="reset" class="btn-ghost">Reset</button></div>
-          </form>
-        </div>
+      <div class="contact-wrapper">
+        <form id="contact-form" aria-label="Contact form">
+          <div class="input-row">
+            <label for="name">Name</label>
+            <input id="name" type="text" />
+          </div>
+          <div class="input-row">
+            <label for="email">Email</label>
+            <input id="email" type="text" />
+          </div>
+          <div class="input-row">
+            <label for="message">Message</label>
+            <textarea id="message" rows="4"></textarea>
+          </div>
+          <div class="contact-actions">
+            <button type="submit" class="btn-send">Send</button>
+            <button type="reset" class="btn-reset">Reset</button>
+          </div>
+        </form>
 
-        <div style="flex:1;min-width:200px" class="feature-card">
-          <h4 style="margin-top:0">Reach us</h4>
-          <p class="small-muted">email: hello@money-saver.example</p>
-          <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
-            <a class="btn-ghost" href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
-            <a class="btn-ghost" href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
-            <a class="btn-ghost" href="#" aria-label="Github"><i class="fa fa-github"></i></a>
+        <div class="reach-us-section">
+          <h4 style="margin:0 0 0.5rem 0; font-family:'Poppins'; color:var(--white)">Reach us</h4>
+          <p class="small-muted" style="margin:0">email: hello@money-saver.example</p>
+          <div class="social-icons">
+            <a class="social-icon" href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+            <a class="social-icon" href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+            <a class="social-icon" href="#" aria-label="Github"><i class="fa fa-github"></i></a>
           </div>
         </div>
       </div>
@@ -934,7 +1140,7 @@
         
         row.innerHTML = `
           <div class="details-col">
-            <input class="expense-name" type="text" value="${escapeHtml(exp.name)}" aria-label="Expense name" placeholder="Expense Name" />
+            <input class="expense-name" type="text" value="${escapeHtml(exp.name)}" aria-label="Expense name" placeholder="Expense Name" inputmode="text" />
             <div class="expense-meta-row">
                <input class="expense-date" type="date" value="${exp.date || new Date().toISOString().split('T')[0]}" aria-label="Expense Date" />
                <select class="expense-type" aria-label="Expense type">
@@ -944,7 +1150,7 @@
           </div>
           
           <div class="amount-col">
-            <input class="expense-amount" type="number" min="0" value="${Number(exp.amount) || 0}" aria-label="Expense amount" placeholder="₹0" />
+            <input class="expense-amount" type="number" min="0" value="${Number(exp.amount) || 0}" aria-label="Expense amount" placeholder="₹0" inputmode="decimal" />
           </div>
 
           <div class="expense-remove-col">
