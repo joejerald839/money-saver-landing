@@ -57,6 +57,9 @@
       transition: background var(--transition), color var(--transition);
     }
 
+    /* Responsive Images */
+    img, svg { max-width: 100%; height: auto; }
+
     main{max-width:var(--max-width); margin:0 auto; padding:2rem; display:block;}
 
     /* Header */
@@ -87,6 +90,8 @@
       background: linear-gradient(90deg,var(--neon), #7fff9e);
       padding:0.6rem 0.9rem;border-radius:12px;color:#021; font-weight:700; text-decoration:none; display:inline-flex; gap:0.5rem; align-items:center;
       box-shadow: var(--shadow-soft);
+      min-width: 44px; min-height: 44px; /* Touch target */
+      justify-content: center;
     }
     .cta:focus{outline:3px solid rgba(57,255,20,0.12)}
 
@@ -112,7 +117,7 @@
     /* Features (PM Case Features Styles) */
     .pm-features-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* Mobile First: 1 col */
       gap: 1.5rem;
       margin-top: 1.5rem;
     }
@@ -146,14 +151,6 @@
       margin-bottom: 0.5rem;
       display: inline-block;
     }
-    
-    /* Responsive Columns for PM Features */
-    @media (min-width: 600px) {
-      .pm-features-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 960px) {
-      .pm-features-grid { grid-template-columns: repeat(3, 1fr); }
-    }
 
     /* Case Study / Story Section */
     #case-study {
@@ -177,7 +174,7 @@
     /* Grid for Case Study Cards */
     .story-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: 1fr; /* Mobile First: 1 col */
         gap: 1.5rem;
     }
     
@@ -234,6 +231,7 @@
       transition: box-shadow var(--transition), border-color var(--transition);
       font-family: "Open Sans", system-ui, -apple-system, sans-serif;
       color-scheme: dark;
+      width: 100%; /* Ensure full width on mobile */
     }
     body.light-theme input[type="date"] { color-scheme: light; }
     input:focus, select:focus, textarea:focus{outline:none; box-shadow:0 6px 20px rgba(57,255,20,0.06); border-color:rgba(57,255,20,0.12)}
@@ -245,6 +243,7 @@
         background-position: right 0.7rem top 50%;
         background-size: 0.65rem auto;
         padding-right: 2rem;
+        width: 100%; /* Ensure full width */
     }
     select option {
         background-color: var(--card);
@@ -270,32 +269,6 @@
         border-radius: 10px; 
         background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
         border: 1px solid rgba(255,255,255,0.02);
-    }
-    
-    /* Mobile Stack (Max width 768px) */
-    @media (max-width: 768px) {
-        .expense-row {
-            grid-template-columns: 1fr 50px; /* Content | Delete */
-            grid-template-rows: auto auto;
-            grid-template-areas: 
-                "details details"
-                "amount remove";
-            gap: 0.6rem;
-            padding: 0.9rem;
-        }
-        
-        .details-col { grid-area: details; }
-        .amount-col { grid-area: amount; }
-        
-        .expense-remove-col { 
-            grid-area: remove; 
-            border-left: none !important; /* Remove vertical divider on mobile */
-            justify-content: flex-end;
-        }
-        
-        .expense-meta-row {
-            margin-top: 0.5rem; /* Extra breathing room on mobile */
-        }
     }
 
     .details-col { width: 100%; }
@@ -331,8 +304,7 @@
         font-size:1.2rem;
         cursor:pointer;
         transition: all 0.2s ease;
-        width: 36px;
-        height: 36px;
+        width: 44px; height: 44px; /* Larger touch target */
         border-radius: 8px;
         display: grid;
         place-items: center;
@@ -387,6 +359,45 @@
     .loading-pulse { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; opacity: 0.7; pointer-events:none; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
 
+    /* Device Toggle Button */
+    #device-view-toggle {
+        position: fixed; bottom: 20px; right: 20px; z-index: 10000;
+        padding: 12px 20px; border-radius: 30px;
+        background: var(--card); border: 2px solid var(--neon); color: var(--white);
+        font-weight: 600; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        transition: all 0.2s ease; font-family: 'Poppins', sans-serif;
+    }
+    #device-view-toggle:hover { transform: scale(1.05); background: var(--neon); color: #000; }
+
+    /* Simulator Mode */
+    body.simulate-mobile {
+        max-width: 400px;
+        margin: 40px auto;
+        border: 12px solid #1e1e1e;
+        border-radius: 36px;
+        box-shadow: 0 0 0 100vw rgba(0,0,0,0.85);
+        overflow-x: hidden;
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+        position: relative;
+        background-color: var(--navy);
+    }
+    
+    /* Fix fixed elements in simulator */
+    body.simulate-mobile header {
+        position: absolute;
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+    }
+    /* Toggle stays fixed to window, not body */
+    body.simulate-mobile #device-view-toggle {
+        position: fixed; right: 20px; bottom: 20px;
+    }
+    
+    /* Scrollbar hiding for simulator niceness */
+    body.simulate-mobile::-webkit-scrollbar { width: 4px; }
+    body.simulate-mobile::-webkit-scrollbar-thumb { background: var(--slate); border-radius: 4px; }
+
     /* Back to top */
     #back-to-top{
       position:fixed;right:1rem;bottom:1.25rem;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--neon);color:#012;box-shadow:0 8px 30px rgba(2,6,23,0.5); border:0;cursor:pointer;transform:translateY(20px);opacity:0;pointer-events:none;transition:all 220ms;
@@ -404,29 +415,50 @@
     .btn{padding:0.6rem 0.9rem;border-radius:10px;border:0;background:var(--neon);color:#021;font-weight:700;cursor:pointer;font-family:inherit}
     .hidden{display:none}
 
-    /* Mobile Responsiveness for new Grid */
-    @media (max-width: 880px){
+    /* --- RESPONSIVE BREAKPOINTS --- */
+    
+    /* Tablet & Up: 2 columns */
+    @media (min-width: 700px) {
+      .pm-features-grid, .story-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    /* Desktop & Up: 3 columns */
+    @media (min-width: 1100px) {
+      .pm-features-grid, .story-grid { grid-template-columns: repeat(3, 1fr); }
+      .container{padding:0 1.25rem}
+      .calc-wrapper{grid-template-columns: 1fr 360px}
+      #hero{grid-template-columns: 1fr 420px}
+    }
+
+    /* Mobile & Stacked Views (Small Screens or Simulator) */
+    @media (max-width: 880px) {
       nav#main-nav{position:fixed; right:1rem; top:64px; background:var(--card); padding:0.75rem;border-radius:12px; flex-direction:column; gap:0.25rem; display:none}
       nav#main-nav.show{display:flex}
       #nav-toggle{display:inline-flex}
       .container{padding:0 0.5rem}
-      .grid-3{grid-template-columns:1fr}
       .summary{grid-template-columns:1fr}
-      
-      /* Stack layout on mobile for calculator wrapper */
       .calc-wrapper { grid-template-columns: 1fr !important; }
       #hero { grid-template-columns: 1fr !important; }
+      
+      /* Stack layout on mobile for expense row */
+      .expense-row {
+          grid-template-columns: 1fr 50px; /* Content | Delete */
+          grid-template-rows: auto auto;
+          grid-template-areas: 
+              "details details"
+              "amount remove";
+          gap: 0.6rem;
+          padding: 0.9rem;
+      }
+      .details-col { grid-area: details; }
+      .amount-col { grid-area: amount; }
+      .expense-remove-col { 
+          grid-area: remove; 
+          border-left: none !important;
+          justify-content: flex-end;
+      }
+      .expense-meta-row { margin-top: 0.5rem; }
     }
 
-    @media (min-width: 880px){
-      .grid-3{grid-template-columns:repeat(3,1fr)}
-      #hero{grid-template-columns: 1fr 420px}
-      .calc-wrapper{grid-template-columns: 1fr 360px}
-    }
-
-    @media (min-width: 1100px){
-      .container{padding:0 1.25rem}
-    }
     @media (prefers-reduced-motion: reduce){
       *{transition:none !important}
     }
@@ -449,7 +481,7 @@
         </button>
 
         <nav id="main-nav" role="navigation" aria-label="Main navigation">
-          <a href="#pm-case-features">Features</a> <!-- Updated Anchor -->
+          <a href="#pm-case-features">Features</a>
           <a href="#calculator">Calculator</a>
           <a href="#case-study">Case Study</a>
           <a href="#contact">Contact</a>
@@ -488,50 +520,38 @@
           <div class="small-muted">Pre-populated demo budget below • Save & export</div>
         </div>
       </div>
-
-      <!-- OLD FEATURES REMOVED AS REQUESTED -->
-      <!-- 
-      <div id="features" style="display:flex;gap:1rem;flex-direction:column;margin-top:0.8rem;scroll-margin-top:80px">
-        ...
-      </div> 
-      -->
     </section>
 
-    <!-- NEW FEATURES SECTION (PM CASE FEATURES) -->
+    <!-- FEATURES SECTION -->
     <section id="pm-case-features" class="reveal" style="margin-top:2rem; padding-top:2rem; scroll-margin-top:80px;">
       <h2 style="font-family:Poppins; color:var(--white); font-size:1.5rem;">Features — What this prototype actually does</h2>
       <p class="muted" style="max-width:700px">This prototype demonstrates the core MVP and the AI-assisted product thinking behind Money Saver — built for fast validation with real users.</p>
       
       <div class="pm-features-grid">
-        <!-- Card 1 -->
         <div class="pm-feature-card" tabindex="0" role="article">
           <div class="pm-feature-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
           <h4>Real-Time Savings</h4>
           <p>Instantly calculates remaining savings as you add income and expense items. Designed for quick clarity.</p>
         </div>
 
-        <!-- Card 2 -->
         <div class="pm-feature-card" tabindex="0" role="article">
           <div class="pm-feature-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
           <h4>Quick Add Expenses</h4>
           <p>Tap-friendly categories (Food, Petrol, Utilities, etc.) for frictionless expense entry — no login required.</p>
         </div>
 
-        <!-- Card 3 -->
         <div class="pm-feature-card" tabindex="0" role="article">
           <div class="pm-feature-icon"><i class="fa fa-magic" aria-hidden="true"></i></div>
           <h4>Smart Expense Categorization (AI-ready)</h4>
           <p>Prototype placeholder for AI-assisted categorization that suggests categories and reduces manual work.</p>
         </div>
 
-        <!-- Card 4 -->
         <div class="pm-feature-card" tabindex="0" role="article">
           <div class="pm-feature-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></div>
           <h4>AI Budget Insights (Future)</h4>
           <p>Shows the product vision: AI-driven tips and forecasted savings to help users improve budgets over time.</p>
         </div>
 
-        <!-- Card 5 -->
         <div class="pm-feature-card" tabindex="0" role="article">
           <div class="pm-feature-icon"><i class="fa fa-check-square-o" aria-hidden="true"></i></div>
           <h4>MVP-Focused Design</h4>
@@ -546,7 +566,6 @@
 
     <!-- CALCULATOR / BUDGETING -->
     <section id="calculator" class="reveal" aria-labelledby="calculator-heading" style="margin-top:1.5rem">
-      <!-- ... existing calculator code ... -->
       <h2 id="calculator-heading" style="font-family:Poppins;color:var(--white)">Budgeting Calculator</h2>
       <p class="small-muted">Live demo: edit amounts and see instant results. Data persists to your browser.</p>
 
@@ -603,7 +622,6 @@
           <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-direction:column">
             <button id="save-data" class="btn-ghost" style="border-color:var(--neon); color: var(--neon);">Save Changes</button>
             <button id="clear-storage" class="btn-ghost">Reset demo data</button>
-            <!-- Start Fresh with Blink Class -->
             <button id="start-fresh" class="btn-ghost blink-active" style="border-color:rgba(255, 100, 100, 0.3); color: #ffadad;">Start Fresh (Clear All)</button>
             <button id="suggestions" class="btn" style="display:flex; justify-content:center; gap:0.5rem; align-items:center;">✨ Get AI suggestions</button>
             <div class="small-muted" style="margin-top:0.6rem">Uses Gemini 2.5 to analyze your budget and suggest improvements.</div>
@@ -614,7 +632,6 @@
 
     <!-- NEW SECTION: PRODUCT CASE STUDY -->
     <section id="case-study" class="reveal">
-      <!-- ... existing case study code ... -->
       <div class="case-study-header">
         <h2>Product Management Case Study: Money Saver Project</h2>
         <p class="muted">A breakdown of the problem, user needs, and the product thinking that drove this prototype.</p>
@@ -720,7 +737,6 @@
 
     <!-- CONTACT -->
     <section id="contact" style="margin-top:1.5rem" aria-labelledby="contact-heading">
-      <!-- ... existing contact code ... -->
       <h2 id="contact-heading" style="font-family:Poppins;color:var(--white)">Contact</h2>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.75rem">
         <div style="flex:1;min-width:300px" class="feature-card">
@@ -745,7 +761,6 @@
     </section>
   </main>
 
-  <!-- ... existing footer and scripts ... -->
   <footer role="contentinfo">
     <div class="container footer-grid">
       <div>&copy; <span id="year"></span> Money Saver — All rights reserved.</div>
@@ -755,6 +770,9 @@
 
   <!-- Back to top -->
   <button id="back-to-top" aria-label="Back to top" title="Back to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+
+  <!-- Device View Toggle -->
+  <button id="device-view-toggle" aria-pressed="false" title="Toggle Mobile View">📱 Mobile View</button>
 
   <!-- Toast -->
   <div id="toast">Data saved locally!</div>
@@ -797,7 +815,7 @@
       const percentSavedEl = QS('#percent-saved');
       const spendProgress = QS('#spend-progress');
       const clearStorageBtn = QS('#clear-storage');
-      const saveDataBtn = QS('#save-data'); // NEW Save Button
+      const saveDataBtn = QS('#save-data');
       const startFreshBtn = QS('#start-fresh');
       const exportCsvBtn = QS('#export-csv');
       const clearNonRecurringBtn = QS('#clear-non-recurring');
@@ -807,6 +825,7 @@
       const navToggleBtn = QS('#nav-toggle');
       const mainNav = QS('#main-nav');
       const backToTopBtn = QS('#back-to-top');
+      const deviceViewToggle = QS('#device-view-toggle'); // New
       const yearEl = QS('#year');
       const toast = QS('#toast');
 
@@ -823,6 +842,7 @@
 
       // Local storage key
       const STORAGE_KEY = 'money-saver:v1';
+      const DEVICE_VIEW_KEY = 'money-saver:device-view'; // Key for view state
 
       // Debounce helper
       function debounce(fn, wait) {
@@ -1050,6 +1070,13 @@
         }
 
         applyTheme(state.theme, false);
+        
+        // Device View Persistence
+        const savedView = localStorage.getItem(DEVICE_VIEW_KEY);
+        if (savedView === 'mobile') {
+           toggleDeviceView(true);
+        }
+
         renderAll();
         attachEvents();
         initReveals();
@@ -1082,6 +1109,25 @@
         applyTheme(newTheme, true);
         state.theme = newTheme;
         saveState();
+      }
+
+      // Device View Logic
+      function toggleDeviceView(forceMobile) {
+         const body = document.body;
+         const btn = deviceViewToggle;
+         const isMobile = forceMobile !== undefined ? forceMobile : !body.classList.contains('simulate-mobile');
+         
+         if (isMobile) {
+             body.classList.add('simulate-mobile');
+             btn.textContent = '💻 Desktop View';
+             btn.setAttribute('aria-pressed', 'true');
+             localStorage.setItem(DEVICE_VIEW_KEY, 'mobile');
+         } else {
+             body.classList.remove('simulate-mobile');
+             btn.textContent = '📱 Mobile View';
+             btn.setAttribute('aria-pressed', 'false');
+             localStorage.setItem(DEVICE_VIEW_KEY, 'desktop');
+         }
       }
 
       async function callGemini(prompt, jsonMode=false) {
@@ -1293,6 +1339,11 @@
 
         themeToggleBtn.addEventListener('click', () => {
           toggleTheme();
+        });
+
+        // Device Toggle Listener
+        deviceViewToggle.addEventListener('click', () => {
+            toggleDeviceView();
         });
 
         navToggleBtn.addEventListener('click', () => {
