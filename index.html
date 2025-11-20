@@ -109,10 +109,119 @@
       display:flex; gap:0.5rem; align-items:center;
     }
 
-    /* Features */
-    .grid-3{display:grid;grid-template-columns:1fr;gap:1rem}
-    .feature-card{background:var(--card);padding:1rem;border-radius:1rem;color:var(--white); box-shadow: 0 8px 24px rgba(2,6,23,0.5);}
-    .feature-card h3{margin:0 0 0.5rem 0;font-family:"Poppins"; color:var(--white)}
+    /* Features (PM Case Features Styles) */
+    .pm-features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .pm-feature-card {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pm-feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.4);
+      border-color: rgba(57,255,20,0.15);
+    }
+    .pm-feature-card h4 {
+      margin: 0.75rem 0 0.5rem 0;
+      color: var(--white);
+      font-family: "Poppins";
+      font-size: 1.1rem;
+    }
+    .pm-feature-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+    .pm-feature-icon {
+      font-size: 1.5rem;
+      color: var(--neon);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    
+    /* Responsive Columns for PM Features */
+    @media (min-width: 600px) {
+      .pm-features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 960px) {
+      .pm-features-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Case Study / Story Section */
+    #case-study {
+        margin-top: 4rem;
+        padding: 2rem;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+        border-radius: var(--radius-2xl);
+        border: 1px solid rgba(255,255,255,0.03);
+    }
+    .case-study-header {
+        margin-bottom: 2rem;
+        max-width: 800px;
+    }
+    .case-study-header h2 {
+        font-family: "Poppins";
+        color: var(--white);
+        margin-bottom: 0.5rem;
+        font-size: 1.75rem;
+    }
+    
+    /* Grid for Case Study Cards */
+    .story-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .story-card {
+        background: var(--card);
+        padding: 1.5rem;
+        border-radius: 16px;
+        border-top: 3px solid var(--neon);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease;
+    }
+    .story-card:hover {
+        transform: translateY(-3px);
+    }
+    
+    .story-card h4 { 
+        margin: 0 0 0.75rem 0; 
+        color: var(--white); 
+        font-family: "Poppins"; 
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .story-card p { 
+        font-size: 0.95rem; 
+        margin-bottom: 0.75rem; 
+        line-height: 1.6;
+    }
+    .story-card ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        list-style-type: disc;
+        color: var(--slate);
+        font-size: 0.9rem;
+    }
+    .story-card li {
+        margin-bottom: 0.4rem;
+    }
+    
+    /* Full width card variant for big sections */
+    .story-card.full-width {
+        grid-column: 1 / -1;
+    }
 
     /* Calculator / Budgeting Section */
     #calculator{margin-top:1.5rem;padding:1rem}
@@ -340,8 +449,9 @@
         </button>
 
         <nav id="main-nav" role="navigation" aria-label="Main navigation">
-          <a href="#features">Features</a>
+          <a href="#pm-case-features">Features</a> <!-- Updated Anchor -->
           <a href="#calculator">Calculator</a>
+          <a href="#case-study">Case Study</a>
           <a href="#contact">Contact</a>
         </nav>
 
@@ -353,7 +463,7 @@
   </header>
 
   <main>
-    <!-- HERO & FEATURES -->
+    <!-- HERO -->
     <section id="hero" class="reveal" aria-labelledby="hero-heading">
       <div class="hero-card">
         <div class="hero-top">
@@ -379,27 +489,64 @@
         </div>
       </div>
 
-      <!-- Mini feature cards (FEATURES SECTION) -->
+      <!-- OLD FEATURES REMOVED AS REQUESTED -->
+      <!-- 
       <div id="features" style="display:flex;gap:1rem;flex-direction:column;margin-top:0.8rem;scroll-margin-top:80px">
-        <div class="grid-3">
-          <div class="feature-card reveal">
-            <h3><i class="fa fa-cog" aria-hidden="true"></i> Automation</h3>
-            <p class="muted">Reduce manual reconciliations and repetitive tasks via custom AI workflows.</p>
-          </div>
-          <div class="feature-card reveal">
-            <h3><i class="fa fa-pie-chart" aria-hidden="true"></i> Insights</h3>
-            <p class="muted">Actionable expense analytics and anomaly detection for better decisions.</p>
-          </div>
-          <div class="feature-card reveal">
-            <h3><i class="fa fa-lock" aria-hidden="true"></i> Enterprise-grade</h3>
-            <p class="muted">Security, SLAs, and integrations tuned for high-ticket clients.</p>
-          </div>
+        ...
+      </div> 
+      -->
+    </section>
+
+    <!-- NEW FEATURES SECTION (PM CASE FEATURES) -->
+    <section id="pm-case-features" class="reveal" style="margin-top:2rem; padding-top:2rem; scroll-margin-top:80px;">
+      <h2 style="font-family:Poppins; color:var(--white); font-size:1.5rem;">Features — What this prototype actually does</h2>
+      <p class="muted" style="max-width:700px">This prototype demonstrates the core MVP and the AI-assisted product thinking behind Money Saver — built for fast validation with real users.</p>
+      
+      <div class="pm-features-grid">
+        <!-- Card 1 -->
+        <div class="pm-feature-card" tabindex="0" role="article">
+          <div class="pm-feature-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
+          <h4>Real-Time Savings</h4>
+          <p>Instantly calculates remaining savings as you add income and expense items. Designed for quick clarity.</p>
         </div>
+
+        <!-- Card 2 -->
+        <div class="pm-feature-card" tabindex="0" role="article">
+          <div class="pm-feature-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
+          <h4>Quick Add Expenses</h4>
+          <p>Tap-friendly categories (Food, Petrol, Utilities, etc.) for frictionless expense entry — no login required.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="pm-feature-card" tabindex="0" role="article">
+          <div class="pm-feature-icon"><i class="fa fa-magic" aria-hidden="true"></i></div>
+          <h4>Smart Expense Categorization (AI-ready)</h4>
+          <p>Prototype placeholder for AI-assisted categorization that suggests categories and reduces manual work.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="pm-feature-card" tabindex="0" role="article">
+          <div class="pm-feature-icon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></div>
+          <h4>AI Budget Insights (Future)</h4>
+          <p>Shows the product vision: AI-driven tips and forecasted savings to help users improve budgets over time.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="pm-feature-card" tabindex="0" role="article">
+          <div class="pm-feature-icon"><i class="fa fa-check-square-o" aria-hidden="true"></i></div>
+          <h4>MVP-Focused Design</h4>
+          <p>Minimal, one-page workflow built to validate the core user need: understand savings without complexity.</p>
+        </div>
+      </div>
+      
+      <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.05); font-size:0.85rem; color:var(--slate);">
+        Prototype: built with ChatGPT, Gemini & GitHub Pages — PM case study available in the Case Study section.
       </div>
     </section>
 
     <!-- CALCULATOR / BUDGETING -->
     <section id="calculator" class="reveal" aria-labelledby="calculator-heading" style="margin-top:1.5rem">
+      <!-- ... existing calculator code ... -->
       <h2 id="calculator-heading" style="font-family:Poppins;color:var(--white)">Budgeting Calculator</h2>
       <p class="small-muted">Live demo: edit amounts and see instant results. Data persists to your browser.</p>
 
@@ -465,8 +612,115 @@
       </div>
     </section>
 
+    <!-- NEW SECTION: PRODUCT CASE STUDY -->
+    <section id="case-study" class="reveal">
+      <!-- ... existing case study code ... -->
+      <div class="case-study-header">
+        <h2>Product Management Case Study: Money Saver Project</h2>
+        <p class="muted">A breakdown of the problem, user needs, and the product thinking that drove this prototype.</p>
+      </div>
+      
+      <div class="story-grid">
+        <!-- 1. Overview -->
+        <div class="story-card full-width">
+          <h4><i class="fa fa-flag-checkered" style="color:var(--neon)"></i> 1. Project Overview</h4>
+          <p>The Money Saver project is a rapid AI-assisted prototype designed to help users track income, expenses, and savings in a simple and intuitive interface. As the Product Manager, my goal was to validate whether a lightweight, easy-to-use budgeting tool could meet the basic needs of individuals and small business owners.</p>
+        </div>
+
+        <!-- 2. Problem Statement -->
+        <div class="story-card">
+          <h4><i class="fa fa-exclamation-triangle" style="color:#ff6b6b"></i> 2. Problem Statement</h4>
+          <p>Users often struggle with understanding where their money goes each month. Existing tools are either too complex, require sign-up, or overwhelm users with features. The core problem: People lack a quick and simple method to see savings in real-time.</p>
+        </div>
+
+        <!-- 3. User Persona -->
+        <div class="story-card">
+          <h4><i class="fa fa-user-circle" style="color:var(--slate)"></i> 3. User Persona</h4>
+          <p><strong>Name:</strong> Priya, Small Business Owner</p>
+          <ul>
+            <li><strong>Needs:</strong> Quickly enter income/expenses, track spending without complex charts, see savings instantly.</li>
+            <li><strong>Pain Points:</strong> Overly complex finance tools, difficulty understanding cash flow, no time to learn new systems.</li>
+          </ul>
+        </div>
+
+        <!-- 4. Product Goals -->
+        <div class="story-card">
+          <h4><i class="fa fa-bullseye" style="color:var(--neon)"></i> 4. Product Goals</h4>
+          <ul>
+            <li>Build a minimal, functional budgeting tool prototype.</li>
+            <li>Validate demand for a simplified expense calculator.</li>
+            <li>Test how AI can accelerate prototype development.</li>
+            <li>Deliver a clean, responsive landing page showcasing core features.</li>
+          </ul>
+        </div>
+
+        <!-- 5. MVP Feature Set -->
+        <div class="story-card">
+          <h4><i class="fa fa-list-ul" style="color:var(--slate)"></i> 5. MVP Feature Set</h4>
+          <ul>
+            <li>Income Input & Reserved Savings goal.</li>
+            <li>Expense Name, Date & Category Selection.</li>
+            <li>Quick Amount Entry.</li>
+            <li>Real-time Savings/Balance Display.</li>
+            <li>Total Expense Summary visualization.</li>
+          </ul>
+        </div>
+
+        <!-- 6. PM Reasoning -->
+        <div class="story-card">
+          <h4><i class="fa fa-brain" style="color:#a48eff"></i> 6. PM Reasoning & Decisions</h4>
+          <ul>
+            <li><strong>Prioritization:</strong> Focused on MVP to validate user needs quickly.</li>
+            <li><strong>UX:</strong> Clean layout, minimal friction, no login required (LocalStorage).</li>
+            <li><strong>Technical:</strong> GitHub Pages deployment, AI-assisted coding for speed.</li>
+            <li><strong>Scope:</strong> Avoided charts/databases to keep the MVP tight and focused.</li>
+          </ul>
+        </div>
+
+        <!-- 7. AI Utilization -->
+        <div class="story-card">
+          <h4><i class="fa fa-robot" style="color:var(--neon)"></i> 7. AI Utilization</h4>
+          <p>AI acted like my rapid prototyping assistant. I used ChatGPT & Gemini to:</p>
+          <ul>
+            <li>Generate UI ideas and refine HTML/CSS.</li>
+            <li>Brainstorm layouts and debug logic.</li>
+            <li>Iterate fast on features like "Smart Label" categorization.</li>
+          </ul>
+        </div>
+
+        <!-- 8. Outcome -->
+        <div class="story-card">
+          <h4><i class="fa fa-chart-line" style="color:#4ade80"></i> 8. Outcome</h4>
+          <ul>
+            <li>Demonstrated ability to use AI tools for rapid product discovery.</li>
+            <li>Showed strong PM thinking in problem definition & scope control.</li>
+            <li>Translated user needs into a working, interactive prototype.</li>
+            <li>Full ownership of the entire product lifecycle.</li>
+          </ul>
+        </div>
+
+        <!-- 9. Future Enhancements -->
+        <div class="story-card">
+          <h4><i class="fa fa-rocket" style="color:#60a5fa"></i> 9. Future Enhancements</h4>
+          <ul>
+            <li>Add visual charts for spending breakdown.</li>
+            <li>Deeper AI-based financial insights.</li>
+            <li>Save history and multiple budget profiles.</li>
+            <li>Cloud sync and mobile native version.</li>
+          </ul>
+        </div>
+
+        <!-- 10. Conclusion -->
+        <div class="story-card full-width" style="border-top-color: #fff;">
+          <h4><i class="fa fa-check-circle" style="color:var(--white)"></i> 10. Conclusion</h4>
+          <p>The Money Saver project demonstrates my PM ownership, technical curiosity, and ability to translate business problems into usable, AI-powered products. It stands as a testament to modern product development: fast, user-centric, and leveraged by AI.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact" style="margin-top:1.5rem" aria-labelledby="contact-heading">
+      <!-- ... existing contact code ... -->
       <h2 id="contact-heading" style="font-family:Poppins;color:var(--white)">Contact</h2>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.75rem">
         <div style="flex:1;min-width:300px" class="feature-card">
@@ -491,6 +745,7 @@
     </section>
   </main>
 
+  <!-- ... existing footer and scripts ... -->
   <footer role="contentinfo">
     <div class="container footer-grid">
       <div>&copy; <span id="year"></span> Money Saver — All rights reserved.</div>
