@@ -575,6 +575,25 @@
       color: var(--neon);
     }
 
+    /* AI Results Container */
+    #ai-results {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(57, 255, 20, 0.2);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--slate);
+        animation: fadeIn 0.3s ease;
+        display: none; /* Hidden by default */
+    }
+    #ai-results strong { color: var(--white); }
+    #ai-results ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+    #ai-results li { margin-bottom: 0.4rem; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
     /* --- RESPONSIVE BREAKPOINTS --- */
     
     /* Tablet & Up: 2 columns */
@@ -749,6 +768,12 @@
           <h4>MVP-Focused Design</h4>
           <p>Minimal, one-page workflow built to validate the core user need: understand savings without complexity.</p>
         </div>
+
+        <div class="pm-feature-card" tabindex="0" role="article">
+          <div class="pm-feature-icon"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+          <h4>Dual-Mode Interface (Business/Personal)</h4>
+          <p>Seamlessly switch between personal budgeting and business expense tracking with context-aware categories and terminology.</p>
+        </div>
       </div>
       
       <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.05); font-size:0.85rem; color:var(--slate);">
@@ -758,14 +783,19 @@
 
     <!-- CALCULATOR / BUDGETING -->
     <section id="calculator" class="reveal" aria-labelledby="calculator-heading" style="margin-top:1.5rem">
-      <h2 id="calculator-heading" style="font-family:Poppins;color:var(--white)">Budgeting Calculator</h2>
-      <p class="small-muted">Live demo: edit amounts and see instant results. Data persists to your browser.</p>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <div>
+            <h2 id="calculator-heading" style="font-family:Poppins;color:var(--white); margin-bottom:0.2rem;">Budgeting Calculator</h2>
+            <p class="small-muted">Live demo: edit amounts and see instant results. Data persists to your browser.</p>
+        </div>
+        <button id="edition-toggle" class="btn-ghost" style="border-color:var(--neon); color:var(--neon); font-size:0.85rem;">Switch to Business Edition</button>
+      </div>
 
       <div class="calc-wrapper" style="margin-top:0.9rem">
         <!-- LEFT: Inputs & expense list -->
         <div class="calc-panel" aria-live="polite">
           <div class="input-row">
-            <label for="total-income">Total Income (monthly)</label>
+            <label id="income-label" for="total-income">Total Income (monthly)</label>
             <input id="total-income" type="number" inputmode="numeric" min="0" value="150000" aria-describedby="income-help" />
           </div>
 
@@ -780,7 +810,12 @@
             <button id="add-emi" class="btn-ghost" title="Add EMI/Loan row"><i class="fa fa-credit-card"></i> Add EMI / Loan</button>
             <button id="export-csv" class="btn-ghost" title="Export budget summary as CSV"><i class="fa fa-download"></i> Export CSV</button>
             <button id="clear-non-recurring" class="btn-ghost" title="Remove all expenses not marked as recurring" style="color:#ff8f8f"><i class="fa fa-eraser"></i> Clear one-offs</button>
-            <button id="smart-categorize" class="btn-ghost" style="color:var(--neon); border-color:rgba(57,255,20,0.3)" title="Auto-assign categories using AI">✨ Smart Label</button>
+            <!-- AI Buttons Group -->
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+               <button id="smart-categorize" class="btn-ghost" style="color:var(--neon); border-color:rgba(57,255,20,0.3)" title="Auto-assign categories using AI">✨ Smart Label</button>
+               <button id="scan-receipt" class="btn-ghost" title="Upload receipt image" style="color:#00d2ff; border-color:rgba(0, 210, 255, 0.3)"><i class="fa fa-camera"></i> Scan Receipt</button>
+               <input type="file" id="receipt-input" accept="image/*" hidden />
+            </div>
           </div>
 
           <div id="expense-list" class="expense-list" aria-live="polite" style="margin-top:0.75rem">
@@ -821,6 +856,8 @@
             <!-- Updated AI Button -->
             <button id="suggestions" class="btn" style="display:flex; justify-content:center; gap:0.5rem; align-items:center; width: 100%;">✨ Get AI suggestions</button>
             <div class="small-muted" style="margin-top:0.6rem">Uses Gemini 2.5 to analyze your budget and suggest improvements.</div>
+            <!-- AI RESULTS CONTAINER -->
+            <div id="ai-results"></div>
           </div>
         </aside>
       </div>
@@ -923,7 +960,13 @@
           </ul>
         </div>
 
-        <!-- 10. Conclusion -->
+        <!-- 10. Strategic Expansion -->
+        <div class="story-card">
+          <h4><i class="fa fa-briefcase" style="color:var(--neon)"></i> Strategic Expansion: The Business Edition</h4>
+          <p>Recognizing that freelancers mix personal and business finances, I implemented a 'Business Mode'. This feature expands the user base (TAM) by reusing 90% of the codebase while solving a distinct problem: separating operational costs (Inventory, Salaries) from personal spending.</p>
+        </div>
+
+        <!-- 11. Conclusion -->
         <div class="story-card full-width" style="border-top-color: #fff;">
           <h4><i class="fa fa-check-circle" style="color:var(--white)"></i> 10. Conclusion</h4>
           <p>The Money Saver project demonstrates my PM ownership, technical curiosity, and ability to translate business problems into usable, AI-powered products. It stands as a testament to modern product development: fast, user-centric, and leveraged by AI.</p>
@@ -1012,6 +1055,7 @@
       const QS = (s, ctx=document) => ctx.querySelector(s);
       const QSA = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
       const totalIncomeEl = QS('#total-income');
+      const incomeLabel = QS('#income-label'); // Added label ref
       const reservedSavingsEl = QS('#reserved-savings');
       const expenseListEl = QS('#expense-list');
       const addExpenseBtn = QS('#add-expense');
@@ -1026,12 +1070,15 @@
       const exportCsvBtn = QS('#export-csv');
       const clearNonRecurringBtn = QS('#clear-non-recurring');
       const smartCategorizeBtn = QS('#smart-categorize');
+      const scanReceiptBtn = QS('#scan-receipt'); // NEW
+      const receiptInput = QS('#receipt-input'); // NEW
       const suggestionsBtn = QS('#suggestions');
       const themeToggleBtn = QS('#theme-toggle');
       const navToggleBtn = QS('#nav-toggle');
       const mainNav = QS('#main-nav');
       const backToTopBtn = QS('#back-to-top');
-      const deviceViewToggle = QS('#device-view-toggle'); // New
+      const deviceViewToggle = QS('#device-view-toggle');
+      const editionToggleBtn = QS('#edition-toggle'); // New edition toggle
       const yearEl = QS('#year');
       const toast = QS('#toast');
 
@@ -1048,7 +1095,22 @@
 
       // Local storage key
       const STORAGE_KEY = 'money-saver:v1';
-      const DEVICE_VIEW_KEY = 'money-saver:device-view'; // Key for view state
+      const DEVICE_VIEW_KEY = 'money-saver:device-view';
+
+      // Categories
+      const CATEGORIES_PERSONAL = ['General','Petrol','Food','Rent','Utilities','EMI/Loan','Other'];
+      const CATEGORIES_BUSINESS = [
+        'General',
+        'Petrol / Travel',
+        'Food / Staff Meals',
+        'Rent / Office Lease',
+        'Utilities (Electricity, Water, Internet)',
+        'EMI / Loan',
+        'Salaries & Wages',
+        'Contractor Payments',
+        'Supplier Payments',
+        'Product Purchases / Inventory'
+      ];
 
       // Debounce helper
       function debounce(fn, wait) {
@@ -1082,7 +1144,8 @@
         income: DEFAULT_DATA.income,
         reservedSavings: DEFAULT_DATA.reservedSavings,
         expenses: [...DEFAULT_DATA.expenses],
-        theme: DEFAULT_DATA.theme
+        theme: DEFAULT_DATA.theme,
+        edition: 'personal' // Default edition
       };
 
       /* -------------------------
@@ -1106,11 +1169,14 @@
         }
       }
       function resetToDefaults() {
+        // Respect current edition when resetting
+        const currentEdition = state.edition;
         state = {
           income: DEFAULT_DATA.income,
           reservedSavings: DEFAULT_DATA.reservedSavings,
           expenses: [...DEFAULT_DATA.expenses],
-          theme: DEFAULT_DATA.theme
+          theme: DEFAULT_DATA.theme,
+          edition: currentEdition
         };
         saveState();
         renderAll();
@@ -1187,7 +1253,6 @@
           const e = state.expenses.find(x => x.id === id);
           if (e) { 
             e.type = typeSelect.value; 
-            // Update name to match type (Requested Feature)
             e.name = typeSelect.value; 
             nameInput.value = typeSelect.value;
             saveState(); 
@@ -1215,9 +1280,23 @@
       }
 
       function renderTypeOptions(selected) {
-        // Removed 'Salaries' as requested
-        const types = ['General','Petrol','Food','Rent','Utilities','EMI/Loan','Other'];
-        return types.map(t => `<option value="${t}" ${t===selected?'selected':''}>${t}</option>`).join('');
+        // Dynamic categories based on Edition
+        const list = state.edition === 'business' ? CATEGORIES_BUSINESS : CATEGORIES_PERSONAL;
+        
+        // If selected value is not in the list (e.g. switched editions), add it temporarily
+        let html = '';
+        let found = false;
+        
+        list.forEach(t => {
+            if (t === selected) found = true;
+            html += `<option value="${t}" ${t===selected?'selected':''}>${t}</option>`;
+        });
+        
+        if (selected && !found) {
+             html += `<option value="${selected}" selected>${selected}</option>`;
+        }
+        
+        return html;
       }
 
       function renderExpenses() {
@@ -1254,6 +1333,16 @@
       function renderAll() {
         totalIncomeEl.value = Number(state.income) || 0;
         reservedSavingsEl.value = Number(state.reservedSavings) || 0;
+        
+        // Update UI based on Edition
+        if (state.edition === 'business') {
+            incomeLabel.textContent = "Total Investment (monthly)";
+            editionToggleBtn.textContent = "Switch to Personal Edition";
+        } else {
+            incomeLabel.textContent = "Total Income (monthly)";
+            editionToggleBtn.textContent = "Switch to Business Edition";
+        }
+
         renderExpenses();
         renderSummary();
       }
@@ -1265,12 +1354,14 @@
           state.reservedSavings = saved.reservedSavings !== undefined ? saved.reservedSavings : DEFAULT_DATA.reservedSavings;
           state.expenses = Array.isArray(saved.expenses) ? saved.expenses : [...DEFAULT_DATA.expenses];
           state.theme = saved.theme || DEFAULT_DATA.theme;
+          state.edition = saved.edition || 'personal';
         } else {
           state = {
             income: DEFAULT_DATA.income,
             reservedSavings: DEFAULT_DATA.reservedSavings,
             expenses: [...DEFAULT_DATA.expenses],
-            theme: DEFAULT_DATA.theme
+            theme: DEFAULT_DATA.theme,
+            edition: 'personal'
           };
           saveState();
         }
@@ -1336,9 +1427,16 @@
          }
       }
 
-      async function callGemini(prompt, jsonMode=false) {
+      async function callGemini(prompt, jsonMode=false, imageBase64=null) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-        const requestBody = { contents: [{ parts: [{ text: prompt }] }] };
+        
+        const parts = [{ text: prompt }];
+        if (imageBase64) {
+            parts.push({ inlineData: { mimeType: "image/jpeg", data: imageBase64 } });
+        }
+        
+        const requestBody = { contents: [{ role: "user", parts: parts }] };
+        
         if (jsonMode) { requestBody.generationConfig = { responseMimeType: "application/json" } }
 
         const delays = [1000, 2000, 4000];
@@ -1366,7 +1464,7 @@
         btn.classList.add('loading-pulse');
 
         const expenseNames = state.expenses.map(e => e.name);
-        const categories = ['General','Petrol','Food','Rent','Utilities','EMI/Loan','Other'];
+        const categories = state.edition === 'business' ? CATEGORIES_BUSINESS : CATEGORIES_PERSONAL;
         
         const prompt = `You are a financial assistant. Map the following expense names to the most appropriate category from this list: ${JSON.stringify(categories)}. 
         Expense names: ${JSON.stringify(expenseNames)}.
@@ -1404,6 +1502,8 @@
       async function analyzeBudget() {
         const btn = suggestionsBtn;
         const originalText = btn.innerHTML;
+        const resultsContainer = QS('#ai-results'); // Select container
+        
         btn.innerHTML = `<i class="fa fa-circle-o-notch fa-spin"></i> Analyzing...`;
         btn.classList.add('loading-pulse');
 
@@ -1416,16 +1516,87 @@
 
         try {
             const analysis = await callGemini(prompt, false);
-            modalMessage.innerHTML = `<div class="ai-content">${analysis}</div>`;
-            showModal('AI Budget Analysis', '', null, true); 
+            
+            // Update inline container
+            resultsContainer.innerHTML = `<div class="ai-content" style="color:var(--slate)">${analysis}</div>`;
+            resultsContainer.style.display = 'block';
+            
+            // Scroll to results
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
         } catch (err) {
             console.error(err);
-            showModal('AI Error', 'Could not generate insights. Please try again later.', null, true);
+            // Show error in the box
+            resultsContainer.innerHTML = `<div style="color:#ff6b6b"><i class="fa fa-exclamation-circle"></i> Could not generate insights. Please try again.</div>`;
+            resultsContainer.style.display = 'block';
         } finally {
             btn.innerHTML = originalText;
             btn.classList.remove('loading-pulse');
         }
       }
+
+      // RECEIPT SCANNER LOGIC
+      async function handleReceiptUpload(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          const btn = scanReceiptBtn;
+          const originalText = btn.innerHTML;
+          btn.innerHTML = `<i class="fa fa-circle-o-notch fa-spin"></i> Scanning...`;
+          
+          try {
+            const base64 = await fileToBase64(file);
+            const categories = state.edition === 'business' ? CATEGORIES_BUSINESS : CATEGORIES_PERSONAL;
+            
+            const prompt = `Analyze this receipt image. Extract these details in JSON format:
+            {
+              "name": "Merchant Name (short string)",
+              "amount": 0 (number only, no currency symbol),
+              "date": "YYYY-MM-DD" (if found, else today's date),
+              "type": "Category" (Choose best match from: ${JSON.stringify(categories)})
+            }`;
+
+            const response = await callGemini(prompt, true, base64);
+            const data = JSON.parse(response);
+
+            if (data) {
+                // Add new expense with extracted data
+                const newId = addExpense({
+                    name: data.name || 'Receipt Expense',
+                    amount: data.amount || 0,
+                    // If date is missing or invalid, default logic in addExpense handles it, 
+                    // but let's try to pass it if valid.
+                    // For simplicity, just passing what AI gave, addExpense handles defaults.
+                });
+                
+                // Find the new expense object to update precise fields if addExpense didn't cover it
+                const newExp = state.expenses.find(x => x.id === newId);
+                if (newExp) {
+                    if(data.date) newExp.date = data.date;
+                    if(data.type) newExp.type = data.type;
+                    saveState();
+                    renderAll();
+                    showToast('Receipt scanned & added!');
+                }
+            }
+          } catch (error) {
+            console.error(error);
+            showModal('Scan Error', 'Could not read receipt. Please try a clearer image.');
+          } finally {
+            btn.innerHTML = originalText;
+            receiptInput.value = ''; // Reset input
+          }
+      }
+
+      function fileToBase64(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]); 
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+      }
+
 
       function showModal(title, message, onConfirm, isAlert=false) {
         modalTitle.textContent = title;
@@ -1508,6 +1679,11 @@
         smartCategorizeBtn.addEventListener('click', smartCategorize);
         suggestionsBtn.addEventListener('click', analyzeBudget);
 
+        // Scanner Listeners
+        scanReceiptBtn.addEventListener('click', () => receiptInput.click());
+        receiptInput.addEventListener('change', handleReceiptUpload);
+
+
         clearStorageBtn.addEventListener('click', () => {
           showModal('Reset Data?', 'This will revert all budget data to the default demo set.', () => {
             localStorage.removeItem(STORAGE_KEY);
@@ -1528,6 +1704,14 @@
              saveState();
              renderAll();
           });
+        });
+
+        // Edition Toggle Listener
+        editionToggleBtn.addEventListener('click', () => {
+            state.edition = state.edition === 'personal' ? 'business' : 'personal';
+            saveState();
+            renderAll();
+            showToast(`Switched to ${state.edition === 'business' ? 'Business' : 'Personal'} Edition`);
         });
 
         exportCsvBtn.addEventListener('click', () => {
@@ -1591,6 +1775,15 @@
           contactForm.reset();
         });
       }
+
+      // Mobile Usability: Scroll focused input into view
+      document.addEventListener('focus', (e) => {
+        if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) {
+          setTimeout(() => {
+            e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        }
+      }, true);
 
       function applyTheme(theme, animate=true) {
         const body = document.body;
